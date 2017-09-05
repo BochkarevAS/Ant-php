@@ -5,16 +5,20 @@
     use Classes\Currency\CountCurrency;
 
     $beginInp = isset($_GET['begin_inp']) ? $_GET['begin_inp'] : 0;
-    $endInp = isset($_GET['end_inp']) ? $_GET['end_inp'] : 0;
     $beginCurrency = isset($_GET['begin_currency']) ? $_GET['begin_currency'] : 0;
     $endCurrency = isset($_GET['end_currency']) ? $_GET['end_currency'] : 0;
     $sum = "";
 
-    $countCurrency = new CountCurrency();
-    $array = $countCurrency->getCurrency();
+    try {
+        $countCurrency = new CountCurrency();
+        $array = $countCurrency->getCurrency();
 
-    if ($_SERVER['REQUEST_METHOD'] === "GET") {
-        $sum = $countCurrency->calculate($beginInp, $endInp, $beginCurrency, $endCurrency);
+        if ($_SERVER['REQUEST_METHOD'] === "GET") {
+            $sum = $countCurrency->calculate($beginInp, $beginCurrency, $endCurrency);
+        }
+
+    } catch (Exception $e) {
+        die("Ошибочка: {$e->getMessage()}");
     }
 
 ?>
@@ -40,9 +44,7 @@
                 <td>
                     Перевести в:
                 </td>
-                <td>
-                    <input type="text" name="end_inp" value="<?= $endInp ?>">
-                </td>
+                <td></td>
                 <td>
                     <select name="end_currency">
                         <?php foreach ($array as $key => $value) : ?>
@@ -64,7 +66,7 @@
 
     <b><?= $beginInp . " " .  $beginCurrency ?></b>
     перевести в
-    <b><?= $endInp . " " .  $endCurrency ?></b>  = <?= $sum ?>
+    <b><?= $endCurrency ?></b> = <?= $sum ?>
 
 
 

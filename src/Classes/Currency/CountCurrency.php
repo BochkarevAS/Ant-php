@@ -8,10 +8,11 @@
         private $valutes = [];
 
         public function __construct() {
+
             $this->rss = simplexml_load_file("https://www.cbr-xml-daily.ru/daily.xml");
 
             if ($this->rss === false) {
-                return;
+                 throw new \Exception("Файл XML не загружен.\n");
             }
 
             foreach ($this->rss as $el) {
@@ -23,15 +24,15 @@
             return $this->valutes;
         }
 
-        public function calculate($beginInp, $endInp, String $beginCurrency, String $endCurrency) {
+        public function calculate($inp, String $beginCurrency, String $endCurrency) {
 
-            if (empty($beginInp) || empty($endInp)) {
+            if (empty($inp)) {
                 return 0;
             }
 
             $val1 = (int) $this->valutes[$beginCurrency];
             $val2 = (int) $this->valutes[$endCurrency];
 
-            return ($beginInp * $val1) / ($endInp * $val2);
+            return ($inp * $val1) / ($val2);
         }
     }
