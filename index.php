@@ -3,6 +3,7 @@
     require_once __DIR__ . '/vendor/autoload.php';
 
     use Classes\Currency\CountCurrency;
+    use Classes\Exceptions\AntException;
 
     $beginInp = isset($_GET['begin_inp']) ? $_GET['begin_inp'] : 0;
     $beginCurrency = isset($_GET['begin_currency']) ? $_GET['begin_currency'] : 0;
@@ -17,8 +18,8 @@
             $sum = $countCurrency->calculate($beginInp, $beginCurrency, $endCurrency);
         }
 
-    } catch (Exception $e) {
-        die("Ошибочка: {$e->getMessage()}");
+    } catch (AntException $e) {
+        echo $e->getMessage();
     }
 
 ?>
