@@ -2,9 +2,7 @@
 
     namespace Classes\Exceptions;
 
-    use Exception;
-
-    class AntException extends Exception {
+    class AntException extends \Exception {
 
         const INVALIDID = 500;
 
