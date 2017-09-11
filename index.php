@@ -3,23 +3,17 @@
     require_once __DIR__ . '/vendor/autoload.php';
 
     use Classes\Currency\CountCurrency;
-    use Classes\Exceptions\AntException;
 
-    $beginInp = isset($_GET['begin_inp']) ? $_GET['begin_inp'] : 0;
-    $beginCurrency = isset($_GET['begin_currency']) ? $_GET['begin_currency'] : 0;
-    $endCurrency = isset($_GET['end_currency']) ? $_GET['end_currency'] : 0;
+    $price = isset($_GET['price']) ? $_GET['price'] : 0;
+    $begin = isset($_GET['begin']) ? $_GET['begin'] : 0;
+    $end = isset($_GET['end']) ? $_GET['end'] : 0;
     $sum = "";
 
-    try {
-        $countCurrency = new CountCurrency();
-        $array = $countCurrency->getCurrency();
+    $countCurrency = new CountCurrency();
+    $array = $countCurrency->getCurrency();
 
-        if ($_SERVER['REQUEST_METHOD'] === "GET") {
-            $sum = $countCurrency->calculate($beginInp, $beginCurrency, $endCurrency);
-        }
-
-    } catch (AntException $e) {
-        echo $e->getMessage();
+    if ($_SERVER['REQUEST_METHOD'] === "GET") {
+        $sum = $countCurrency->calculate($price, $begin, $end);
     }
 
 ?>
@@ -31,12 +25,12 @@
                     Исходная валюта:
                 </td>
                 <td>
-                    <input type="text" name="begin_inp" value="<?= $beginInp ?>">
+                    <input type="text" name="price" value="<?= $price ?>">
                 </td>
                 <td>
-                    <select name="begin_currency">
+                    <select name="begin">
                         <?php foreach ($array as $key => $value) : ?>
-                            <option value="<?= $key ?>" <?= ($key == $beginCurrency) ? "selected" : "" ?> ><?= $key ?></option>
+                            <option value="<?= $key ?>" <?= ($key == $begin) ? "selected" : "" ?> ><?= $key ?></option>
                         <?php endforeach; ?>
                     </select>
                 </td>
@@ -47,9 +41,9 @@
                 </td>
                 <td></td>
                 <td>
-                    <select name="end_currency">
+                    <select name="end">
                         <?php foreach ($array as $key => $value) : ?>
-                            <option value="<?= $key ?>" <?= ($key == $endCurrency) ? "selected" : "" ?> ><?= $key ?></option>
+                            <option value="<?= $key ?>" <?= ($key == $end) ? "selected" : "" ?> ><?= $key ?></option>
                         <?php endforeach; ?>
                     </select>
                 </td>
@@ -65,9 +59,9 @@
 
     <br>
 
-    <b><?= $beginInp . " " .  $beginCurrency ?></b>
+    <b><?= $price . " " .  $begin ?></b>
     перевести в
-    <b><?= $endCurrency ?></b> = <?= $sum ?>
+    <b><?= $end ?></b> = <?= $sum ?>
 
 
 
