@@ -2,15 +2,23 @@
 
     namespace Classes\Currency;
 
-    use Classes\Currency\Daily\CbrXMLDaily;
+    use Classes\Currency\Service\API\Reader;
 
-    class CountCurrency extends CbrXMLDaily {
+    class CountCurrency {
 
-        public function __construct() {
-            parent::__construct();
+        private $valutes = [];
+        private $reader;
+
+        public function setReader(Reader $reader) {
+            $this->reader = $reader;
         }
 
-        public function calculate($inp, String $beginCurrency, String $endCurrency) {
+        public function getContent($filepath) {
+            $this->valutes = $this->reader->readFile($filepath);
+            return $this->valutes;
+        }
+
+        public function calculate(int $inp, String $beginCurrency, String $endCurrency) {
 
             if (empty($inp)) {
                 return 0;
@@ -21,5 +29,4 @@
 
             return ($inp * $val1) / ($val2);
         }
-
     }

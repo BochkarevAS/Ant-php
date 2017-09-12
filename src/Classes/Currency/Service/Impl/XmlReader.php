@@ -1,15 +1,16 @@
 <?php
 
-    namespace Classes\Currency\Daily;
+    namespace Classes\Currency\Service\Impl;
 
     use Classes\Currency\Exception\AntException;
+    use Classes\Currency\Service\API\Reader;
 
-    class CbrXMLDaily {
+    class XmlReader implements Reader {
 
-        protected $valutes = [];
+        private $valutes = [];
 
-        public function __construct() {
-            $rss = simplexml_load_file("https://www.cbr-xml-daily.ru/daily.xml");
+        public function readFile($filepath) {
+            $rss = simplexml_load_file($filepath);
 
             if ($rss === false) {
                 throw new AntException("Файл не загружен!");
@@ -18,10 +19,7 @@
             foreach ($rss as $el) {
                 $this->valutes[strval($el->CharCode)] = strval($el->Value);
             }
-        }
 
-        public function getCurrency() {
             return $this->valutes;
         }
-
     }
