@@ -13,12 +13,12 @@
             $this->reader = $reader;
         }
 
-        public function getContent($filepath) : array {
+        public function getContent($filepath): array {
             $this->valutes = $this->reader->readFile($filepath);
             return $this->valutes;
         }
 
-        public function calculate(int $inp, String $beginCurrency, String $endCurrency) : float {
+        public function calculate(int $inp, String $beginCurrency, String $endCurrency): float {
 
             if (empty($inp)) {
                 return 0;
