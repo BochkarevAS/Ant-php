@@ -1,11 +1,10 @@
 <?php
 
-    namespace Classes\Currency\Service\Impl;
+    namespace Classes\Currency\Service;
 
     use Classes\Currency\Exception\AntException;
-    use Classes\Currency\Service\API\Reader;
 
-    class XmlReader implements Reader {
+    class CbrXMLDaily implements Reader {
 
         private $valutes = [];
 
@@ -17,7 +16,7 @@
             }
 
             foreach ($rss as $el) {
-                $this->valutes[strval($el->CharCode)] = strval($el->Value);
+                $this->valutes[strval($el->Name)] = strval($el->Value);
             }
 
             return $this->valutes;

@@ -2,14 +2,14 @@
 
     namespace Classes\Currency;
 
-    use Classes\Currency\Service\API\Reader;
+    use Classes\Currency\Service\Reader;
 
     class CountCurrency {
 
         private $valutes = [];
         private $reader;
 
-        public function setReader(Reader $reader) {
+        public function __construct(Reader $reader) {
             $this->reader = $reader;
         }
 
