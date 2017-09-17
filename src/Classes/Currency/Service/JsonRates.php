@@ -2,12 +2,13 @@
 
     namespace Classes\Currency\Service;
 
+    use Classes\Currency\Exception\AntException;
+
     class JsonRates implements Reader {
 
-        private $valutes = [];
-
-        public function readFile($filepath) {
-            $rss = json_decode(file_get_contents($filepath), true);
+        public function readFile() {
+            $rss = json_decode(file_get_contents("https://www.cbr-xml-daily.ru/daily_json.js"), true);
+            $valutes = [];
 
             if ($rss === false) {
                 throw new AntException("Файл не загружен!");
@@ -17,10 +18,10 @@
 
                 if (gettype($el) !== 'string') {
                     foreach ($el as $item) {
-                        $this->valutes[$item['Name']] = $item['Value'];
+                        $valutes[$item['Name']] = $item['Value'];
                     }
                 }
             }
-            return $this->valutes;
+            return $valutes;
         }
     }
