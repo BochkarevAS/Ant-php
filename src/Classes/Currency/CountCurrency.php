@@ -2,30 +2,34 @@
 
     namespace Classes\Currency;
 
+    use Classes\Currency\Exception\CalculateException;
     use Classes\Currency\Service\Reader;
 
     class CountCurrency {
 
-        private $valutes = [];
         private $reader;
 
         public function __construct(Reader $reader) {
             $this->reader = $reader;
         }
 
-        public function getContent(): array {
-            $this->valutes = $this->reader->readFile();
-            return $this->valutes;
-        }
-
         public function calculate(int $inp, String $begin, String $end): float {
+            $valutes = $this->reader->readFile();
+
+            $val1 = (int) $valutes[$begin];
+            $val2 = (int) $valutes[$end];
 
             if (empty($inp)) {
-                return 0;
+                throw new CalculateException("Ошибка вычесления!");
             }
 
-            $val1 = (int) $this->valutes[$begin];
-            $val2 = (int) $this->valutes[$end];
+            if (!is_numeric($val1) && !is_numeric($val2)) {
+                throw new CalculateException("Ошибка вычесления!");
+            }
+
+            if ($val2 == 0) {
+                throw new CalculateException("Ошибка вычесления!");
+            }
 
             return ($inp * $val1) / ($val2);
         }
