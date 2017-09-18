@@ -7,7 +7,7 @@
         const NUM_ERROR = 500;
 
         public function __construct($message) {
-            parent::__construct($message,NUM_ERROR);
+            parent::__construct($message, NUM_ERROR);
         }
 
     }
