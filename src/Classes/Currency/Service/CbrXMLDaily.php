@@ -7,14 +7,14 @@
     class CbrXMLDaily implements Reader {
 
         public function readFile() {
-            $rss = simplexml_load_file("https://www.cbr-xml-daily.ru/daily.xml");
+            $xml = simplexml_load_file("https://www.cbr-xml-daily.ru/daily.xml");
             $valutes = [];
 
-            if ($rss === false) {
-                throw new AntException("Файл не загружен!");
+            if ($xml === false) {
+                throw new AntException("Сервер не отвечает или вернул пустой результат!");
             }
 
-            foreach ($rss as $el) {
+            foreach ($xml as $el) {
                 $valutes[strval($el->Name)] = strval($el->Value);
             }
 

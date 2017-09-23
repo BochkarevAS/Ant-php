@@ -13,24 +13,28 @@
             $this->reader = $reader;
         }
 
-        public function calculate(int $inp, String $begin, String $end): float {
+        public function calculate(int $val, String $to, String $from): float {
             $valutes = $this->reader->readFile();
 
-            $val1 = (int) $valutes[$begin];
-            $val2 = (int) $valutes[$end];
-
-            if (empty($inp)) {
-                throw new CalculateException("Ошибка вычесления!");
+            if (empty($val) || $val < 0) {
+                throw new CalculateException("Недопустимая цена!");
             }
 
-            if (!is_numeric($val1) && !is_numeric($val2)) {
-                throw new CalculateException("Ошибка вычесления!");
+            if (!isset($valutes[$to])) {
+                throw new CalculateException("Введена не коректная валюта " . $to);
             }
 
-            if ($val2 == 0) {
-                throw new CalculateException("Ошибка вычесления!");
+            if (!isset($valutes[$from])) {
+                throw new CalculateException("Введена не коректная валюта " . $from);
             }
 
-            return ($inp * $val1) / ($val2);
+            $rate1 = (int) $valutes[$to];
+            $rate2 = (int) $valutes[$from];
+
+            if ($from == 0) {
+                throw new CalculateException("Деление на ноль не допустимо!");
+            }
+
+            return ($val * $rate1) / ($rate2);
         }
     }

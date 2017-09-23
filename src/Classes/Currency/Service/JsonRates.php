@@ -7,16 +7,16 @@
     class JsonRates implements Reader {
 
         public function readFile() {
-            $rss = json_decode(file_get_contents("https://www.cbr-xml-daily.ru/daily_json.js"), true);
+            $json = json_decode(file_get_contents("https://www.cbr-xml-daily.ru/daily_json.js"), true);
             $valutes = [];
 
-            if ($rss === false) {
-                throw new AntException("Файл не загружен!");
+            if ($json === false) {
+                throw new AntException("Сервер не отвечает или вернул пустой результат!");
             }
 
-            foreach ($rss as $el) {
+            foreach ($json as $el) {
 
-                if (gettype($el) !== 'string') {
+                if (!is_string($el)) {
                     foreach ($el as $item) {
                         $valutes[$item['Name']] = $item['Value'];
                     }
