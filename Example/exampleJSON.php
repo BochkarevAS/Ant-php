@@ -6,10 +6,10 @@
     $countCurrency = new CountCurrency(new CbrXMLDaily());
 
     $price = 17;
-    $to = "Австралийский доллар";
-    $from = "Австралийский доллар";
+    $valute1 = "Австралийский доллар";
+    $valute2 = "Австралийский доллар";
 
-    $sum = round($countCurrency->calculate($price, $to, $from), 3);
+    $sum = round($countCurrency->calculate($price, $valute1, $valute2), 3);
 
     echo $sum;
 

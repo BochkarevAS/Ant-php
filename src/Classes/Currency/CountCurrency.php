@@ -8,30 +8,39 @@
     class CountCurrency {
 
         private $reader;
+        private $valutes;
 
         public function __construct(Reader $reader) {
             $this->reader = $reader;
         }
 
-        public function calculate(int $val, String $to, String $from): float {
-            $valutes = $this->reader->readFile();
+        function getValutes() {
+            if ($this->valutes === null) {
+                $this->valutes = $this->reader->readFile();
+            }
+
+            return $this->valutes;
+        }
+
+        public function calculate(int $val, String $valute1, String $valute2): float {
+            $valutes = $this->getValutes();
 
             if (empty($val) || $val < 0) {
                 throw new CalculateException("Недопустимая цена!");
             }
 
-            if (!isset($valutes[$to])) {
-                throw new CalculateException("Введена не коректная валюта " . $to);
+            if (!isset($valutes[$valute1])) {
+                throw new CalculateException("Введена не коректная валюта " . $valute1);
             }
 
-            if (!isset($valutes[$from])) {
-                throw new CalculateException("Введена не коректная валюта " . $from);
+            if (!isset($valutes[$valute2])) {
+                throw new CalculateException("Введена не коректная валюта " . $valute2);
             }
 
-            $rate1 = (int) $valutes[$to];
-            $rate2 = (int) $valutes[$from];
+            $rate1 = (int) $valutes[$valute1];
+            $rate2 = (int) $valutes[$valute2];
 
-            if ($from == 0) {
+            if ($rate2 == 0) {
                 throw new CalculateException("Деление на ноль не допустимо!");
             }
 
