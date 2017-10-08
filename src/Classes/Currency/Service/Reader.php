@@ -1,7 +1,7 @@
 <?php
 
-    namespace Classes\Currency\Service;
+namespace Classes\Currency\Service;
 
-    interface Reader {
-        public  function readFile();
-    }
+interface Reader {
+    public  function readFile();
+}

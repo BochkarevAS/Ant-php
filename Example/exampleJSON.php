@@ -1,15 +1,15 @@
 <?php
 
-    use Classes\Currency\CountCurrency;
-    use Classes\Currency\Service\CbrXMLDaily;
+use Classes\Currency\CountCurrency;
+use Classes\Currency\Service\CbrXMLDaily;
 
-    $countCurrency = new CountCurrency(new CbrXMLDaily());
+$countCurrency = new CountCurrency(new CbrXMLDaily());
 
-    $price = 17;
-    $valute1 = "Австралийский доллар";
-    $valute2 = "Австралийский доллар";
+$price = 17;
+$valute1 = "Австралийский доллар";
+$valute2 = "Австралийский доллар";
 
-    $sum = round($countCurrency->calculate($price, $valute1, $valute2), 3);
+$sum = round($countCurrency->calculate($price, $valute1, $valute2), 3);
 
-    echo $sum;
+echo $sum;
 
