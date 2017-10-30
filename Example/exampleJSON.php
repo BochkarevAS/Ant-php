@@ -1,23 +1,17 @@
 <?php
 
 use Classes\Currency\CountCurrency;
+use Classes\Currency\Psr16\SimpleCache;
 use Classes\Currency\Service\CbrXMLDaily;
 
-$client = new Predis\Client([
-    'scheme' => 'tcp',
-    'host'   => '127.0.0.1',
-    'port'   => 6379,
-]);
 
-$client = new Predis\Client('tcp://127.0.0.1:6379');
-
-$client->set('message', 'Hello world');
-$value = $client->get('message');
-print($value);
-
-
+$cache = new SimpleCache(new CbrXMLDaily());
 
 $countCurrency = new CountCurrency(new CbrXMLDaily());
+
+
+
+
 
 $price = 17;
 $valute1 = "Австралийский доллар";
