@@ -15,4 +15,15 @@ class SimpleCache {
         $this->cache = $cache;
     }
 
+    public function setCache() {
+        $this->cache->set("key", $this->pool->readFile(), 300);
+    }
+
+    public function getCache() {
+        if (!empty($this->pool->readFile())) {
+            return $this->pool->readFile();
+        }
+        return null;
+    }
+
 }
