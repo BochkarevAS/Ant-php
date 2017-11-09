@@ -10,9 +10,9 @@ class SimpleCache {
     private $pool;
     private $anotherPsr16class;
 
-    public function __construct(Reader $pool, CacheInterface $anotherPsr16class) {
+    public function __construct(Reader $pool, CacheInterface $cache) {
         $this->pool = $pool;
-        $this->anotherPsr16class = $anotherPsr16class;
+        $this->anotherPsr16class = $cache;
     }
 
 }

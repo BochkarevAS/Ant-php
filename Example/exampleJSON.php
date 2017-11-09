@@ -4,9 +4,7 @@ use Classes\Currency\CountCurrency;
 use Classes\Currency\Psr16\AnotherPsr16class;
 use Classes\Currency\Psr16\SimpleCache;
 use Classes\Currency\Service\CbrXMLDaily;
-//use Symfony\Component\Cache\Simple\FilesystemCache;
-//
-//$cache = new FilesystemCache();
+
 
 $cache = new SimpleCache(new CbrXMLDaily(), new AnotherPsr16class());
 
