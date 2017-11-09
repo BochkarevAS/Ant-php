@@ -7,6 +7,9 @@ use Classes\Currency\Service\CbrXMLDaily;
 
 
 $cache = new SimpleCache(new CbrXMLDaily(), new AnotherPsr16class());
+setCache();
+getCache();
+
 
 $countCurrency = new CountCurrency(new CbrXMLDaily());
 

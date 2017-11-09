@@ -5,7 +5,7 @@ namespace Classes\Currency\Psr16;
 use Classes\Currency\Service\Reader;
 use Psr\SimpleCache\CacheInterface;
 
-class SimpleCache {
+class SimpleCache implements Reader {
 
     private $pool;
     private $cache;
@@ -19,11 +19,11 @@ class SimpleCache {
         $this->cache->set("key", $this->pool->readFile(), 300);
     }
 
-    public function getCache() {
-        if (!empty($this->pool->readFile())) {
-            return $this->pool->readFile();
+    public function readFile() {
+
+        if (!empty($this->cache->get("key"))) {
+            return $this->cache->get("key");
         }
         return null;
     }
-
 }
