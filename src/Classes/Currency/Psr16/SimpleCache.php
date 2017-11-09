@@ -15,15 +15,15 @@ class SimpleCache implements Reader {
         $this->cache = $cache;
     }
 
-    public function setCache() {
-        $this->cache->set("key", $this->pool->readFile(), 300);
-    }
-
     public function readFile() {
 
-        if (!empty($this->cache->get("key"))) {
-            return $this->cache->get("key");
+        $data = $this->cache->get("key");
+
+        if (!$data) {
+            $data = $this->pool->readFile();
+            $this->cache->set("key",$data , 300);
         }
-        return null;
+        return $data;
+
     }
 }
