@@ -8,11 +8,11 @@ use Psr\SimpleCache\CacheInterface;
 class SimpleCache {
 
     private $pool;
-    private $anotherPsr16class;
+    private $cache;
 
     public function __construct(Reader $pool, CacheInterface $cache) {
         $this->pool = $pool;
-        $this->anotherPsr16class = $cache;
+        $this->cache = $cache;
     }
 
 }
