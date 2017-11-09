@@ -2,19 +2,25 @@
 
 namespace Classes\Currency\Psr16;
 
-use Classes\Currency\Service\JsonRates;
-use Psr\SimpleCache\CacheInterface;
-use Psr\SimpleCache\DateInterval;
+use Classes\Currency\Service\Reader;
 
-class SimpleCache implements CacheInterface {
+class SimpleCache {
 
     private $pool;
+    private $anotherPsr16class;
 
-    public function __construct(JsonRates $pool) {
+    public function __construct(Reader $pool, AnotherPsr16class $anotherPsr16class) {
         $this->pool = $pool;
+        $this->anotherPsr16class = $anotherPsr16class;
     }
 
-    public function get($key, $default = null) {
+    public function setCache() {
+        $this->anotherPsr16class->set("key", $this->pool->readFile(), 300);
+
+
+    }
+
+    public function getCache() {
 
         if (!empty($this->pool->readFile())) {
             return $this->pool->readFile();
@@ -22,29 +28,4 @@ class SimpleCache implements CacheInterface {
         return null;
     }
 
-    public function set($key, $value, $ttl = null) {
-        $item = $this->pool->getItem($key)->set($value);
-        if (null !== $ttl) {
-            $item->expiresAfter($ttl);
-        }
-        return $this->pool->save($item);
-    }
-
-    public function delete($key) {
-    }
-
-    public function clear() {
-    }
-
-    public function getMultiple($keys, $default = null) {
-    }
-
-    public function setMultiple($values, $ttl = null) {
-    }
-
-    public function deleteMultiple($keys) {
-    }
-
-    public function has($key) {
-    }
 }
