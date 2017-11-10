@@ -1,17 +1,12 @@
 <?php
 
 use Classes\Currency\CountCurrency;
-use Classes\Currency\Psr16\AnotherPsr16class;
 use Classes\Currency\Psr16\SimpleCache;
 use Classes\Currency\Service\CbrXMLDaily;
+use Symfony\Component\Cache\Simple\FilesystemCache;
 
-
-$cache = new SimpleCache(new CbrXMLDaily(), new AnotherPsr16class());
-setCache();
-getCache();
-
-
-$countCurrency = new CountCurrency(new CbrXMLDaily());
+$cache = new SimpleCache(new CbrXMLDaily(), new FilesystemCache());
+$countCurrency = new CountCurrency($cache);
 
 $price = 17;
 $valute1 = "Австралийский доллар";

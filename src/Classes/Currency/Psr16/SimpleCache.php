@@ -21,7 +21,7 @@ class SimpleCache implements Reader {
 
         if (!$data) {
             $data = $this->pool->readFile();
-            $this->cache->set("key",$data , 300);
+            $this->cache->set("key", $data,300);
         }
         return $data;
 
