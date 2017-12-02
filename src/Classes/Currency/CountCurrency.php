@@ -3,14 +3,14 @@
 namespace Classes\Currency;
 
 use Classes\Currency\Exception\CalculateException;
-use Classes\Currency\Service\Reader;
+use Classes\Currency\Service\ReaderInterface;
 
 class CountCurrency {
 
     private $reader;
     private $valutes;
 
-    public function __construct(Reader $reader) {
+    public function __construct(ReaderInterface $reader) {
         $this->reader = $reader;
     }
 

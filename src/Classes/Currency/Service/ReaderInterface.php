@@ -2,6 +2,6 @@
 
 namespace Classes\Currency\Service;
 
-interface Reader {
+interface ReaderInterface {
     public  function readFile();
 }

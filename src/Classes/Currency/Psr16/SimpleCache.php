@@ -2,15 +2,15 @@
 
 namespace Classes\Currency\Psr16;
 
-use Classes\Currency\Service\Reader;
+use Classes\Currency\Service\ReaderInterface;
 use Psr\SimpleCache\CacheInterface;
 
-class SimpleCache implements Reader {
+class SimpleCache implements ReaderInterface {
 
     private $pool;
     private $cache;
 
-    public function __construct(Reader $pool, CacheInterface $cache) {
+    public function __construct(ReaderInterface $pool, CacheInterface $cache) {
         $this->pool = $pool;
         $this->cache = $cache;
     }
@@ -24,6 +24,5 @@ class SimpleCache implements Reader {
             $this->cache->set("key", $data,300);
         }
         return $data;
-
     }
 }

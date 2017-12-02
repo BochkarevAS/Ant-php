@@ -2,10 +2,10 @@
 
 use Classes\Currency\CountCurrency;
 use Classes\Currency\Psr16\SimpleCache;
-use Classes\Currency\Service\CbrXMLDaily;
+use Classes\Currency\Service\JsonRates;
 use Symfony\Component\Cache\Simple\FilesystemCache;
 
-$cache = new SimpleCache(new CbrXMLDaily(), new FilesystemCache());
+$cache = new SimpleCache(new JsonRates(), new FilesystemCache());
 $countCurrency = new CountCurrency($cache);
 
 $price = 17;
@@ -15,4 +15,3 @@ $valute2 = "Австралийский доллар";
 $sum = round($countCurrency->calculate($price, $valute1, $valute2), 3);
 
 echo $sum;
-

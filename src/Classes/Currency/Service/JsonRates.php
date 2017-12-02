@@ -4,7 +4,7 @@ namespace Classes\Currency\Service;
 
 use Classes\Currency\Exception\AntException;
 
-class JsonRates implements Reader {
+class JsonRates implements ReaderInterface {
 
     public function readFile() {
         $json = json_decode(file_get_contents("https://www.cbr-xml-daily.ru/daily_json.js"), true);

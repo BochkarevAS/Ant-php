@@ -3,14 +3,17 @@
 namespace tests;
 
 use Classes\Currency\CountCurrency;
+use Classes\Currency\Psr16\SimpleCache;
 use Classes\Currency\Service\Fake;
+use Symfony\Component\Cache\Simple\FilesystemCache;
 
 class UnitXMLTest extends \PHPUnit_Framework_TestCase {
 
     private $countCurrency;
 
     protected function setUp() {
-        $this->countCurrency = new CountCurrency(new Fake(['Австралийский доллар' => 45, 'Белорусский рубль' => 50, 'Болгарский лев' => 33, 'Датских крон' => 47]));
+        $cache = new SimpleCache(new Fake(['Австралийский доллар' => 45, 'Белорусский рубль' => 50, 'Болгарский лев' => 33, 'Датских крон' => 47]), new FilesystemCache());
+        $this->countCurrency = new CountCurrency($cache);
     }
 
     public function testAdd() {
@@ -24,5 +27,4 @@ class UnitXMLTest extends \PHPUnit_Framework_TestCase {
     protected function tearDown() {
         $this->countCurrency = NULL;
     }
-
 }

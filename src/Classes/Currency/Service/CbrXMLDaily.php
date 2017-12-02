@@ -4,7 +4,7 @@ namespace Classes\Currency\Service;
 
 use Classes\Currency\Exception\AntException;
 
-class CbrXMLDaily implements Reader {
+class CbrXMLDaily implements ReaderInterface {
 
     public function readFile() {
         $xml = simplexml_load_file("https://www.cbr-xml-daily.ru/daily.xml");

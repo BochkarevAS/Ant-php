@@ -2,7 +2,7 @@
 
 namespace Classes\Currency\Service;
 
-class Fake implements Reader {
+class Fake implements ReaderInterface {
 
     private $values;
 
